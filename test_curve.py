@@ -19,8 +19,8 @@ fontsize = 11
 plt.figure(figsize=(12,4))
 
 data1 = 'unet/net40.txt'
-with open(data1, "r",encoding='utf-8') as f:  # 打开文件
-    s = f.read()  # 读取文件
+with open(data1, "r",encoding='utf-8') as f:  # open a file
+    s = f.read()  # read file
     # print(s)
 acc1 = []
 for i in re.findall("test_accuracy:-*[0-9].[0-9]+", s):
@@ -28,8 +28,8 @@ for i in re.findall("test_accuracy:-*[0-9].[0-9]+", s):
 print(acc1)
 
 data2 = 'unet/net41.txt'
-with open(data2, "r",encoding='utf-8') as f:  # 打开文件
-    s = f.read()  # 读取文件
+with open(data2, "r",encoding='utf-8') as f:  # open a file
+    s = f.read()  # read file
     # print(s)
 acc2 = []
 for i in re.findall("test_accuracy:-*[0-9].[0-9]+", s):

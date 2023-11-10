@@ -16,8 +16,8 @@ import cv2
 from model import ResNet18Unet
 checkpoint = 'unet/net21.pth'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-data_folder="E:/zwl/北航学习/科研/ljb/项目/dataset/Fringe_colors"
-target_folder="E:/zwl/北航学习/科研/ljb/项目/dataset/Stress_maps"
+data_folder="dataset/Fringe_colors"
+target_folder="dataset/Stress_maps"
 
 
 net=ResNet18Unet().to(device)
@@ -26,18 +26,18 @@ net.eval()
 
 
 # ring 13141 13156 13171 13186 13201 13216
-# img1 = os.path.join(data_folder,"Img_13141.bmp")
-# target_img1 = os.path.join(target_folder,"Target_13141.bmp")
-# img2 = os.path.join(data_folder,"Img_13156.bmp")
-# target_img2 = os.path.join(target_folder,"Target_13156.bmp")
-# img3 = os.path.join(data_folder,"Img_13171.bmp")
-# target_img3 = os.path.join(target_folder,"Target_13171.bmp")
-# img1 = os.path.join(data_folder,"Img_13186.bmp")
-# target_img1 = os.path.join(target_folder,"Target_13186.bmp")
-# img2 = os.path.join(data_folder,"Img_13201.bmp")
-# target_img2 = os.path.join(target_folder,"Target_13201.bmp")
-# img3 = os.path.join(data_folder,"Img_13216.bmp")
-# target_img3 = os.path.join(target_folder,"Target_13216.bmp")
+img1 = os.path.join(data_folder,"Img_13141.bmp")
+target_img1 = os.path.join(target_folder,"Target_13141.bmp")
+img2 = os.path.join(data_folder,"Img_13156.bmp")
+target_img2 = os.path.join(target_folder,"Target_13156.bmp")
+img3 = os.path.join(data_folder,"Img_13171.bmp")
+target_img3 = os.path.join(target_folder,"Target_13171.bmp")
+img1 = os.path.join(data_folder,"Img_13186.bmp")
+target_img1 = os.path.join(target_folder,"Target_13186.bmp")
+img2 = os.path.join(data_folder,"Img_13201.bmp")
+target_img2 = os.path.join(target_folder,"Target_13201.bmp")
+img3 = os.path.join(data_folder,"Img_13216.bmp")
+target_img3 = os.path.join(target_folder,"Target_13216.bmp")
 
 # bunny = 99991 100006 100021 100036 100051 100066
 # img1 = os.path.join(data_folder,"Img_99991.bmp")

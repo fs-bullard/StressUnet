@@ -19,8 +19,8 @@ from model import ResNet18Unet
 time_start = time.time()
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-data_folder="D:/dataset/Fringe_colors"
-target_folder="D:/dataset/Stress_maps"
+data_folder="dataset/Fringe_colors"
+target_folder="dataset/Stress_maps"
 
 epoch_lr=[(10,0.0001,1),(10,0.00001,5)]
 batch_size = 128
@@ -52,6 +52,7 @@ preprocess = transforms.Compose([
     #     std=[0.229, 0.224, 0.225],
     # )
 ])
+
 def default_loader(path):
     img_pil = Image.open(path)
     # img_pil = img_pil.resize((224,224))
@@ -126,6 +127,7 @@ def train():
             epoch_loss = 0.0
             for i, (img, target) in enumerate(trainloader):
                 out = net(img.to(device))
+                # print(i)
                 # print(out.shape)
                 # print(target.shape)
                 ssim_loss = 1 - pytorch_ssim.ssim(out, target.to(device).float())
