@@ -11,17 +11,18 @@ from PIL import Image
 import pytorch_ssim
 import numpy as np
 import math
-import cv2
+# import cv2
 
 from model import ResNet18Unet
-checkpoint = 'unet/net21.pth'
+
+checkpoint = 'unet/net1.pth'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-data_folder="E:/zwl/北航学习/科研/ljb/项目/dataset/Fringe_colors"
-target_folder="E:/zwl/北航学习/科研/ljb/项目/dataset/Stress_maps"
+data_folder="dataset/Fringe_colors"
+target_folder="dataset/Stress_maps"
 
 
 net=ResNet18Unet().to(device)
-net.load_state_dict(torch.load(checkpoint)["params"])
+net.load_state_dict(torch.load(checkpoint, map_location=device)["params"])
 net.eval()
 
 
@@ -76,8 +77,8 @@ net.eval()
 
 
 preprocess = transforms.Compose([
-    #transforms.Scale(256),
-    #transforms.CenterCrop(224),
+    # transforms.Resize(256),
+    # transforms.CenterCrop(224),
     transforms.ToTensor(),
     # transforms.Normalize(
     #     mean=[0.485, 0.456, 0.406],
@@ -141,26 +142,26 @@ def calculate_psnr_mse(photo_list,name):
                 img_2[m][n] = (img_2[m-1][n]+img_2[m+1][n]+img_2[m][n-1]+img_2[m][n+1])/4
         print(psnr1(img_1, img_2))
 
-ring = [13141, 13156, 13171, 13186, 13201, 13216]
-print(calculate_ssim(ring,'ring'))
-print(calculate_psnr_mse(ring,'ring'))
-bunny = [99991, 100006, 100021, 100036, 100051, 100066]
-print(calculate_ssim(bunny,'bunny'))
-print(calculate_psnr_mse(bunny,'bunny'))
-dragon = [100351,100366,100381,100396,100411,100426]
-print(calculate_ssim(dragon,'dragon'))
-print(calculate_psnr_mse(dragon,'dragon'))
-frog = [100712, 100727, 100742, 100757, 100772, 100787]
-print(calculate_ssim(frog,'frog'))
-print(calculate_psnr_mse(frog,'frog'))
-dragon_2 = [101073, 101088, 101103, 101118, 101133, 101148]
-print(calculate_ssim(dragon_2,'dragon_2'))
-print(calculate_psnr_mse(dragon_2,'dragon_2'))
+# ring = [13141, 13156, 13171, 13186, 13201, 13216]
+# print(calculate_ssim(ring,'ring'))
+# print(calculate_psnr_mse(ring,'ring'))
+# bunny = [99991, 100006, 100021, 100036, 100051, 100066]
+# print(calculate_ssim(bunny,'bunny'))
+# print(calculate_psnr_mse(bunny,'bunny'))
+# dragon = [100351,100366,100381,100396,100411,100426]
+# print(calculate_ssim(dragon,'dragon'))
+# print(calculate_psnr_mse(dragon,'dragon'))
+# frog = [100712, 100727, 100742, 100757, 100772, 100787]
+# print(calculate_ssim(frog,'frog'))
+# print(calculate_psnr_mse(frog,'frog'))
+# dragon_2 = [101073, 101088, 101103, 101118, 101133, 101148]
+# print(calculate_ssim(dragon_2,'dragon_2'))
+# print(calculate_psnr_mse(dragon_2,'dragon_2'))
 
 
-img_pil1 = Image.open(img1)
-img_tensor1 = preprocess(img_pil1)
-target_img_pil1 = Image.open(target_img1)
+# img_pil1 = Image.open(img1)
+# img_tensor1 = preprocess(img_pil1)
+# target_img_pil1 = Image.open(target_img1)
 # t = np.array(target_img_pil1)
 # for i in range(1,223):
 #     for j in range(1,223):
@@ -168,22 +169,21 @@ target_img_pil1 = Image.open(target_img1)
 #         if abs(t[i][j]-ct) > 1.25:
 #             print(i,j,t[i][j],ct,t[i-1][j],t[i+1][j],t[i][j-1],t[i][j+1])
 # print(np.array(target_img_pil1)[220:225,145:150])
-predict1 = net(img_tensor1.unsqueeze(0).to(device))*255
-predict_img1 = predict1.long().squeeze(0)
-print(pytorch_ssim.ssim(predict1/255,preprocess(Image.open(target_img1)).unsqueeze(0)))
-img_pil2 = Image.open(img2)
-img_tensor2 = preprocess(img_pil2)
-target_img_pil2 = Image.open(target_img2)
-predict2 = net(img_tensor2.unsqueeze(0).to(device))*255
-predict_img2 = predict2.long().squeeze(0)
-print(pytorch_ssim.ssim(predict2/255,preprocess(Image.open(target_img2)).unsqueeze(0)))
-img_pil3 = Image.open(img3)
-img_tensor3 = preprocess(img_pil3)
-target_img_pil3 = Image.open(target_img3)
-predict3 = net(img_tensor3.unsqueeze(0).to(device))*255
-predict_img3 = predict3.long().squeeze(0)
-print(pytorch_ssim.ssim(predict3/255,preprocess(Image.open(target_img3)).unsqueeze(0)))
-plt.show()
+# predict1 = net(img_tensor1.unsqueeze(0).to(device))*255
+# predict_img1 = predict1.long().squeeze(0)
+# print(pytorch_ssim.ssim(predict1/255,preprocess(Image.open(target_img1)).unsqueeze(0)))
+# img_pil2 = Image.open(img2)
+# img_tensor2 = preprocess(img_pil2)
+# target_img_pil2 = Image.open(target_img2)
+# predict2 = net(img_tensor2.unsqueeze(0).to(device))*255
+# predict_img2 = predict2.long().squeeze(0)
+# print(pytorch_ssim.ssim(predict2/255,preprocess(Image.open(target_img2)).unsqueeze(0)))
+# img_pil3 = Image.open(img3)
+# img_tensor3 = preprocess(img_pil3)
+# target_img_pil3 = Image.open(target_img3)
+# predict3 = net(img_tensor3.unsqueeze(0).to(device))*255
+# predict_img3 = predict3.long().squeeze(0)
+# print(pytorch_ssim.ssim(predict3/255,preprocess(Image.open(target_img3)).unsqueeze(0)))
 
 # plt.subplot(331)
 # plt.imshow(img_pil1)
@@ -206,11 +206,22 @@ plt.show()
 # plt.savefig('res.png',dpi=600,bbox_inches='tight')
 # plt.show()
 
+# import rawpy
 
+# with rawpy.imread('IMG_3823.CR2') as raw_img:
+#         img = raw_img.postprocess()
 
+# img_tensor1 = preprocess(Image.fromarray(img))
+# img = Image.open('dataset/Fringe_colors/Img_13261.bmp')
+img = Image.open('cropped_masked_224.bmp')
+# plt.imshow(img)
+# plt.show()
+plt.subplot(121)
+plt.imshow(img)
+img_tensor1 = preprocess(img)
 
-
-
-
-
-
+predict1 = net(img_tensor1.unsqueeze(0).to(device))*255
+predict_img1 = predict1.long().squeeze(0)
+plt.subplot(122)
+plt.imshow(predict_img1.data.cpu().numpy().squeeze(0), cmap='gray')
+plt.show()
