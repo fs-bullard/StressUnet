@@ -1,16 +1,10 @@
-import pandas as pd
-import numpy as np
 import torch
 from torch import nn, optim
-from torchvision.models import resnet18
-# from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 import os
-# import cv2
 from PIL import Image
-import matplotlib.pyplot as plt
 from torch.utils.data import Dataset, DataLoader
-from torchvision import transforms, utils
+from torchvision import transforms
 import time
 import pytorch_ssim
 
@@ -22,7 +16,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 data_folder="dataset/Fringe_colors"
 target_folder="dataset/Stress_maps"
 
-epoch_lr=[(50,0.0001,1),(10,0.00001,5)]
+epoch_lr=[(10,0.0001,1),(2,0.00001,5)]
 batch_size = 128
 
 checkpoint = 'unet-2/net.pth'
@@ -53,7 +47,6 @@ def default_loader(path):
 
 class trainset(Dataset):
     def __init__(self, loader=default_loader):
-        #定义好 image 的路径
         self.images = train_fringe_files
         self.target = train_target_files
         self.loader = loader
@@ -70,7 +63,6 @@ class trainset(Dataset):
 
 class testset(Dataset):
     def __init__(self, loader=default_loader):
-        #定义好 image 的路径
         self.images = test_fringe_files
         self.target = test_target_files
         self.loader = loader
@@ -110,6 +102,7 @@ def train():
         for epoch in range(num_epochs):
             print('-'*100)
             print(f'Epoch: {epoch}')
+            
 
             # Set lambda for loss calculation
             if n == 0:
@@ -117,20 +110,27 @@ def train():
             else:
                 ld = 1 + epoch*0.2
 
+            # Set net to training mode
             net.train()
 
+            # Iterate through the training set, using tqdm for progress bar
             for i, (img, target) in tqdm(enumerate(trainloader), total=len(trainloader)):
-                print(f'Epoch: {epoch}, Batch: {i}')
+                # print(f'Epoch: {epoch}, Batch: {i}')
+
+                # Forward Pass
                 out = net(img.to(device))
 
-                # Calculate loss
+                # Compute loss
                 loss = 1 - pytorch_ssim.ssim(out,target.to(device).float()) + ld * criteron(out.squeeze(1),target.to(device).float().squeeze(1))
 
+                # Backwards pass
                 optimizer.zero_grad()
                 loss.backward()
+
+                # Update model parameters
                 optimizer.step()
 
-            #test
+            # Validation
             with torch.no_grad():
                 net.eval()
                 test_accuracy = 0.0
@@ -144,6 +144,7 @@ def train():
                 print("test_accuracy:{}".format(test_accuracy / batch))
                 time_end = time.time()
                 print('totally cost', time_end - time_start)
+
             if test_accuracy / batch > best_accuracy:
                 best_accuracy = test_accuracy / batch
                 torch.save(
@@ -153,15 +154,3 @@ def train():
 
 if __name__ == "__main__":
     train()
-
-
-
-
-
-
-
-
-
-
-
-
