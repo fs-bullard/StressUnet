@@ -5,7 +5,7 @@ from torch import nn, optim
 from torchvision.models import resnet18
 from tqdm import tqdm
 import os
-import cv2
+# import cv2
 from PIL import Image
 import matplotlib.pyplot as plt
 from torch.utils.data import Dataset, DataLoader
