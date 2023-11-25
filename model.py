@@ -5,8 +5,6 @@ from torch import nn
 from torchvision.models import resnet18
 import torch.nn.functional as F
 
-model_checkpoint = 'unet/net19.pth'
-
 class Physics(nn.Module):
     def __init__(self):
         super(Physics, self).__init__()
@@ -156,11 +154,8 @@ if __name__ == "__main__":
     # print(net)
     a = torch.rand(1, 3, 224, 224)
     # print(net(a).shape)
-    checkpoint = 'unet-2/net.pth'
-    torch.save({"params":net.state_dict()}, checkpoint)
-
+    model_checkpoint = 'unet-2/net_init.pth'
     torch.save({"params":net.state_dict()}, model_checkpoint)
-
 
 
 

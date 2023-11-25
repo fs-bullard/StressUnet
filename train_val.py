@@ -19,8 +19,8 @@ target_folder="dataset/Stress_maps"
 epoch_lr=[(10,0.0001,1),(2,0.00001,5)]
 batch_size = 128
 
-checkpoint = 'unet-2/net.pth'
-model_checkpoint = 'unet-2/net19.pth'
+checkpoint = 'unet-2/net_trained.pth'
+model_checkpoint = 'unet-2/net_init.pth'
 
 
 fringe_files_list = ['Img_' + str(i) +'.bmp' for i in range(1,100001,10)]
