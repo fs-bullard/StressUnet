@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-dataset/
-venv/
-__pycache__
-=======
 venv/
 __pycache__/
 dataset/
->>>>>>> bf99fa5afaa16149f2bfe3b143164f4339c3e98f

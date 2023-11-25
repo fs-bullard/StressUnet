@@ -14,12 +14,8 @@ import math
 # import cv2
 
 from model import ResNet18Unet
-<<<<<<< HEAD
-checkpoint = 'unet/net19.pth'
-=======
 
 checkpoint = 'unet/net1.pth'
->>>>>>> bf99fa5afaa16149f2bfe3b143164f4339c3e98f
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 data_folder="dataset/Fringe_colors"
 target_folder="dataset/Stress_maps"
@@ -173,46 +169,6 @@ def calculate_psnr_mse(photo_list,name):
 #         if abs(t[i][j]-ct) > 1.25:
 #             print(i,j,t[i][j],ct,t[i-1][j],t[i+1][j],t[i][j-1],t[i][j+1])
 # print(np.array(target_img_pil1)[220:225,145:150])
-<<<<<<< HEAD
-predict1 = net(img_tensor1.unsqueeze(0).to(device))*255
-predict_img1 = predict1.long().squeeze(0)
-print(pytorch_ssim.ssim(predict1/255,preprocess(Image.open(target_img1)).unsqueeze(0).to(device)))
-img_pil2 = Image.open(img2)
-img_tensor2 = preprocess(img_pil2)
-target_img_pil2 = Image.open(target_img2)
-predict2 = net(img_tensor2.unsqueeze(0).to(device))*255
-predict_img2 = predict2.long().squeeze(0)
-print(pytorch_ssim.ssim(predict2/255,preprocess(Image.open(target_img2)).unsqueeze(0).to(device)))
-img_pil3 = Image.open(img3)
-img_tensor3 = preprocess(img_pil3)
-target_img_pil3 = Image.open(target_img3)
-predict3 = net(img_tensor3.unsqueeze(0).to(device))*255
-predict_img3 = predict3.long().squeeze(0)
-print(pytorch_ssim.ssim(predict3/255,preprocess(Image.open(target_img3)).unsqueeze(0).to(device)))
-
-
-plt.subplot(331)
-plt.imshow(img_pil1)
-plt.subplot(332)
-plt.imshow(target_img_pil1,cmap=plt.cm.gray,vmin=0,vmax=255)
-plt.subplot(333)
-plt.imshow(predict_img1.data.cpu().numpy().squeeze(0),cmap=plt.cm.gray,vmin=0,vmax=255)
-plt.subplot(334)
-plt.imshow(img_pil2)
-plt.subplot(335)
-plt.imshow(target_img_pil2,cmap=plt.cm.gray,vmin=0,vmax=255)
-plt.subplot(336)
-plt.imshow(predict_img2.data.cpu().numpy().squeeze(0),cmap=plt.cm.gray,vmin=0,vmax=255)
-plt.subplot(337)
-plt.imshow(img_pil3)
-plt.subplot(338)
-plt.imshow(target_img_pil3,cmap=plt.cm.gray,vmin=0,vmax=255)
-plt.subplot(339)
-plt.imshow(predict_img3.data.cpu().numpy().squeeze(0),cmap=plt.cm.gray,vmin=0,vmax=255)
-plt.savefig('res.png',dpi=600,bbox_inches='tight')
-plt.show()
-
-=======
 # predict1 = net(img_tensor1.unsqueeze(0).to(device))*255
 # predict_img1 = predict1.long().squeeze(0)
 # print(pytorch_ssim.ssim(predict1/255,preprocess(Image.open(target_img1)).unsqueeze(0)))
@@ -251,7 +207,6 @@ plt.show()
 # plt.show()
 
 # import rawpy
->>>>>>> bf99fa5afaa16149f2bfe3b143164f4339c3e98f
 
 # with rawpy.imread('IMG_3823.CR2') as raw_img:
 #         img = raw_img.postprocess()
