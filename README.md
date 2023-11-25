@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # StressUnet
 predict stress field in photoelasticity
 
@@ -32,3 +33,21 @@ def _ssim(img1, img2, window, window_size, channel, size_average = True):
     else:
         return ssim_map.mean(1).mean(1).mean(1)
 ```
+=======
+# StressUnet - extracting stress maps from isochromatic images with deep learning
+ 
+
+To train the model (Windows):
+
+- Run the following in command prompt:
+    ```
+    venv\Scripts\activate.bat
+    pip install -r requirements.txt
+    ```
+
+ - Replace `venv\Lib\pytorch_ssim\__init__.py` with `replacement-files\__init__.py` to fix the integer division bug
+
+ - Run `train_val.py` 
+
+
+>>>>>>> bf99fa5afaa16149f2bfe3b143164f4339c3e98f
