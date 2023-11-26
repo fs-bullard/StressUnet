@@ -146,14 +146,12 @@ class ResNet18Unet(nn.Module):
         d1=self.decoder1(torch.cat([d2,x],1))
         # # print(d1.shape)
         f=self.finalconv(d1)
-        f=self.physics(f)
+        # f=self.physics(f)
         return f
 
 if __name__ == "__main__":
     net = ResNet18Unet(pretrained=False)
-    # print(net)
-    a = torch.rand(1, 3, 224, 224)
-    # print(net(a).shape)
+    
     model_checkpoint = 'unet-2/net_init.pth'
     torch.save({"params":net.state_dict()}, model_checkpoint)
 

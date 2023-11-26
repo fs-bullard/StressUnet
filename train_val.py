@@ -9,19 +9,18 @@ import time
 import pytorch_ssim
 
 from model import ResNet18Unet
-print(torch.version.cuda)
+
 time_start = time.time()
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 data_folder="dataset/Fringe_colors"
 target_folder="dataset/Stress_maps"
 
-epoch_lr=[(10,0.0001,1),(2,0.00001,5)]
+epoch_lr=[(20,0.0001,1),(4,0.00001,5)]
 batch_size = 128
 
 checkpoint = 'unet-2/net_trained.pth'
 model_checkpoint = 'unet-2/net_init.pth'
-
 
 fringe_files_list = ['Img_' + str(i) +'.bmp' for i in range(1,100001,10)]
 target_files_list = ['Target_' + str(i) +'.bmp' for i in range(1,100001,10)]
@@ -37,7 +36,6 @@ train_fringe_files=fringe_files
 train_target_files=target_files
 test_fringe_files=fringe_files1
 test_target_files=target_files1
-
 
 def default_loader(path):
     img_pil = Image.open(path)
@@ -78,7 +76,7 @@ class testset(Dataset):
         return len(self.images)
 
 def train():
-    net=ResNet18Unet().to(device)
+    net = ResNet18Unet().to(device)
     # load model params
     net.load_state_dict(torch.load(model_checkpoint)["params"])
     print('successful')
@@ -103,11 +101,11 @@ def train():
         optimizer = optim.Adam(
             net.parameters(), lr=lr, weight_decay=0,
         )
+
         for epoch in range(num_epochs):
             print('-'*100)
             print(f'Epoch: {epoch}')
             
-
             # Set lambda for loss calculation
             if n == 0:
                 ld = 1
@@ -127,8 +125,10 @@ def train():
                 # Compute loss
                 loss = 1 - pytorch_ssim.ssim(out,target.to(device).float()) + ld * criteron(out.squeeze(1),target.to(device).float().squeeze(1))
 
-                # Backwards pass
+                # Zero the gradients
                 optimizer.zero_grad()
+
+                # Backwards pass
                 loss.backward()
 
                 # Update model parameters
@@ -147,7 +147,7 @@ def train():
                 # print loss
                 print("test_accuracy:{}".format(test_accuracy / batch))
                 time_end = time.time()
-                print('totally cost', time_end - time_start)
+                print('Elapsed time', time_end - time_start)
 
             if test_accuracy / batch > best_accuracy:
                 best_accuracy = test_accuracy / batch
