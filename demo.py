@@ -15,7 +15,7 @@ import math
 
 from model import ResNet18Unet
 
-checkpoint = 'unet/net1.pth'
+checkpoint = 'unet-2/net_trained.pth'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 data_folder="dataset/Fringe_colors"
 target_folder="dataset/Stress_maps"
@@ -213,7 +213,7 @@ def calculate_psnr_mse(photo_list,name):
 
 # img_tensor1 = preprocess(Image.fromarray(img))
 # img = Image.open('dataset/Fringe_colors/Img_13261.bmp')
-img = Image.open('cropped_masked_224.bmp')
+img = Image.open('resources/img/cropped_masked_224.bmp')
 # plt.imshow(img)
 # plt.show()
 plt.subplot(121)
