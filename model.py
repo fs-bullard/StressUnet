@@ -144,7 +144,7 @@ class ResNet18Unet(nn.Module):
         d2=self.decoder2(torch.cat([d3,e1],1))
         # print(d2.shape)
         d1=self.decoder1(torch.cat([d2,x],1))
-        # # print(d1.shape)
+        # print(d1.shape)
         f=self.finalconv(d1)
         # f=self.physics(f)
         return f
