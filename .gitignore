@@ -1,6 +1,6 @@
 venv/
 __pycache__/
 dataset/
-*.cv2
+*.CR2
 *.xcf
 *.xmp
