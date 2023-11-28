@@ -213,7 +213,7 @@ def calculate_psnr_mse(photo_list,name):
 
 # img_tensor1 = preprocess(Image.fromarray(img))
 # img = Image.open('dataset/Fringe_colors/Img_13261.bmp')
-img = Image.open('resources/img/cropped_masked_224.bmp')
+img = Image.open('resources/ring/200.bmp')
 # plt.imshow(img)
 # plt.show()
 plt.subplot(121)
