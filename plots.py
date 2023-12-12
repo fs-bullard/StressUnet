@@ -43,7 +43,7 @@ fig.text(0.01, 0.928, 'Compressive Force (kN)', ha='left', va='center', fontsize
 
 for i, filename in enumerate(filenames):
     # Load img
-    img = Image.open('resources/disc/' + filename)
+    img = Image.open('resources/ring/' + filename)
 
     # Preprocess img
     img_tensor = preprocess(img)
@@ -66,5 +66,5 @@ cbar = plt.colorbar(res, cax=cax, shrink=0.7)
 cbar.set_label('Relative Stress')
 
 plt.tight_layout()
-plt.savefig('results/disc/disc_ml_comparison.png', bbox_inches='tight')
+plt.savefig('results/ring/ring_ml_comparison.png', bbox_inches='tight')
 plt.show()
