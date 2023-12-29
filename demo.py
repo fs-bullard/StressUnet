@@ -27,18 +27,18 @@ net.eval()
 
 
 # ring 13141 13156 13171 13186 13201 13216
-# img1 = os.path.join(data_folder,"Img_13141.bmp")
-# target_img1 = os.path.join(target_folder,"Target_13141.bmp")
-# img2 = os.path.join(data_folder,"Img_13156.bmp")
-# target_img2 = os.path.join(target_folder,"Target_13156.bmp")
+img1 = os.path.join(data_folder,"Img_13141.bmp")
+target_img1 = os.path.join(target_folder,"Target_13141.bmp")
+img2 = os.path.join(data_folder,"Img_13156.bmp")
+target_img2 = os.path.join(target_folder,"Target_13156.bmp")
 # img3 = os.path.join(data_folder,"Img_13171.bmp")
 # target_img3 = os.path.join(target_folder,"Target_13171.bmp")
 # img1 = os.path.join(data_folder,"Img_13186.bmp")
 # target_img1 = os.path.join(target_folder,"Target_13186.bmp")
 # img2 = os.path.join(data_folder,"Img_13201.bmp")
 # target_img2 = os.path.join(target_folder,"Target_13201.bmp")
-# img3 = os.path.join(data_folder,"Img_13216.bmp")
-# target_img3 = os.path.join(target_folder,"Target_13216.bmp")
+img3 = os.path.join(data_folder,"Img_13216.bmp")
+target_img3 = os.path.join(target_folder,"Target_13216.bmp")
 
 # bunny = 99991 100006 100021 100036 100051 100066
 # img1 = os.path.join(data_folder,"Img_99991.bmp")
@@ -159,52 +159,52 @@ def calculate_psnr_mse(photo_list,name):
 # print(calculate_psnr_mse(dragon_2,'dragon_2'))
 
 
-# img_pil1 = Image.open(img1)
-# img_tensor1 = preprocess(img_pil1)
-# target_img_pil1 = Image.open(target_img1)
-# t = np.array(target_img_pil1)
-# for i in range(1,223):
-#     for j in range(1,223):
-#         ct = np.average([t[i-1][j] , t[i+1][j] , t[i][j-1] , t[i][j+1]])
-#         if abs(t[i][j]-ct) > 1.25:
-#             print(i,j,t[i][j],ct,t[i-1][j],t[i+1][j],t[i][j-1],t[i][j+1])
-# print(np.array(target_img_pil1)[220:225,145:150])
-# predict1 = net(img_tensor1.unsqueeze(0).to(device))*255
-# predict_img1 = predict1.long().squeeze(0)
-# print(pytorch_ssim.ssim(predict1/255,preprocess(Image.open(target_img1)).unsqueeze(0)))
-# img_pil2 = Image.open(img2)
-# img_tensor2 = preprocess(img_pil2)
-# target_img_pil2 = Image.open(target_img2)
-# predict2 = net(img_tensor2.unsqueeze(0).to(device))*255
-# predict_img2 = predict2.long().squeeze(0)
-# print(pytorch_ssim.ssim(predict2/255,preprocess(Image.open(target_img2)).unsqueeze(0)))
-# img_pil3 = Image.open(img3)
-# img_tensor3 = preprocess(img_pil3)
-# target_img_pil3 = Image.open(target_img3)
-# predict3 = net(img_tensor3.unsqueeze(0).to(device))*255
-# predict_img3 = predict3.long().squeeze(0)
-# print(pytorch_ssim.ssim(predict3/255,preprocess(Image.open(target_img3)).unsqueeze(0)))
+img_pil1 = Image.open(img1)
+img_tensor1 = preprocess(img_pil1)
+target_img_pil1 = Image.open(target_img1)
+t = np.array(target_img_pil1)
+for i in range(1,223):
+    for j in range(1,223):
+        ct = np.average([t[i-1][j] , t[i+1][j] , t[i][j-1] , t[i][j+1]])
+        if abs(t[i][j]-ct) > 1.25:
+            print(i,j,t[i][j],ct,t[i-1][j],t[i+1][j],t[i][j-1],t[i][j+1])
+print(np.array(target_img_pil1)[220:225,145:150])
+predict1 = net(img_tensor1.unsqueeze(0).to(device))*255
+predict_img1 = predict1.long().squeeze(0)
+print(pytorch_ssim.ssim(predict1/255,preprocess(Image.open(target_img1)).unsqueeze(0).to(device)))
+img_pil2 = Image.open(img2)
+img_tensor2 = preprocess(img_pil2)
+target_img_pil2 = Image.open(target_img2)
+predict2 = net(img_tensor2.unsqueeze(0).to(device))*255
+predict_img2 = predict2.long().squeeze(0)
+print(pytorch_ssim.ssim(predict2/255,preprocess(Image.open(target_img2)).unsqueeze(0).to(device)))
+img_pil3 = Image.open(img3)
+img_tensor3 = preprocess(img_pil3)
+target_img_pil3 = Image.open(target_img3)
+predict3 = net(img_tensor3.unsqueeze(0).to(device))*255
+predict_img3 = predict3.long().squeeze(0)
+print(pytorch_ssim.ssim(predict3/255,preprocess(Image.open(target_img3)).unsqueeze(0).to(device)))
 
-# plt.subplot(331)
-# plt.imshow(img_pil1)
-# plt.subplot(332)
-# plt.imshow(target_img_pil1,cmap=plt.cm.gray,vmin=0,vmax=255)
-# plt.subplot(333)
-# plt.imshow(predict_img1.data.cpu().numpy().squeeze(0),cmap=plt.cm.gray,vmin=0,vmax=255)
-# plt.subplot(334)
-# plt.imshow(img_pil2)
-# plt.subplot(335)
-# plt.imshow(target_img_pil2,cmap=plt.cm.gray,vmin=0,vmax=255)
-# plt.subplot(336)
-# plt.imshow(predict_img2.data.cpu().numpy().squeeze(0),cmap=plt.cm.gray,vmin=0,vmax=255)
-# plt.subplot(337)
-# plt.imshow(img_pil3)
-# plt.subplot(338)
-# plt.imshow(target_img_pil3,cmap=plt.cm.gray,vmin=0,vmax=255)
-# plt.subplot(339)
-# plt.imshow(predict_img3.data.cpu().numpy().squeeze(0),cmap=plt.cm.gray,vmin=0,vmax=255)
+plt.subplot(331)
+plt.imshow(img_pil1)
+plt.subplot(332)
+plt.imshow(target_img_pil1,cmap=plt.cm.gray,vmin=0,vmax=255)
+plt.subplot(333)
+plt.imshow(predict_img1.data.cpu().numpy().squeeze(0),cmap=plt.cm.gray,vmin=0,vmax=255)
+plt.subplot(334)
+plt.imshow(img_pil2)
+plt.subplot(335)
+plt.imshow(target_img_pil2,cmap=plt.cm.gray,vmin=0,vmax=255)
+plt.subplot(336)
+plt.imshow(predict_img2.data.cpu().numpy().squeeze(0),cmap=plt.cm.gray,vmin=0,vmax=255)
+plt.subplot(337)
+plt.imshow(img_pil3)
+plt.subplot(338)
+plt.imshow(target_img_pil3,cmap=plt.cm.gray,vmin=0,vmax=255)
+plt.subplot(339)
+plt.imshow(predict_img3.data.cpu().numpy().squeeze(0),cmap=plt.cm.gray,vmin=0,vmax=255)
 # plt.savefig('res.png',dpi=600,bbox_inches='tight')
-# plt.show()
+plt.show()
 
 # import rawpy
 
@@ -213,15 +213,15 @@ def calculate_psnr_mse(photo_list,name):
 
 # img_tensor1 = preprocess(Image.fromarray(img))
 # img = Image.open('dataset/Fringe_colors/Img_13261.bmp')
-img = Image.open('resources/disc/100.bmp')
+# img = Image.open('resources/disc/100.bmp')
 # plt.imshow(img)
 # plt.show()
-plt.subplot(121)
-plt.imshow(img)
-img_tensor1 = preprocess(img)
+# plt.subplot(121)
+# plt.imshow(img)
+# img_tensor1 = preprocess(img)
 
-predict1 = net(img_tensor1.unsqueeze(0).to(device))*255
-predict_img1 = predict1.long().squeeze(0)
-plt.subplot(122)
-plt.imshow(predict_img1.data.cpu().numpy().squeeze(0), cmap='gray')
-plt.show()
+# predict1 = net(img_tensor1.unsqueeze(0).to(device))*255
+# predict_img1 = predict1.long().squeeze(0)
+# plt.subplot(122)
+# plt.imshow(predict_img1.data.cpu().numpy().squeeze(0), cmap='gray')
+# plt.show()
